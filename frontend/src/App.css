@@ -1,0 +1,24 @@
+@import "tailwindcss";
+
+
+[data-theme="dark"]
+  li:not(.menu-title, .menu-disabled)
+  > :not(ul, .menu-title, .collapse, .accordion-content, .btn).menu-active {
+  background-color: var(--color-primary);
+  color: var(--color-primary-content);
+}
+
+[data-theme="black"]
+  li:not(.menu-title, .menu-disabled)
+  > :not(ul, .menu-title, .collapse, .accordion-content, .btn).menu-active {
+  background-color: var(--color-primary);
+  color: var(--color-primary-content);
+}
+
+[data-theme="luxury"]
+  li:not(.menu-title, .menu-disabled)
+  > :not(ul, .menu-title, .collapse, .accordion-content, .btn).menu-active {
+  background-color: var(--color-primary);
+  color: var(--color-primary-content);
+}
+

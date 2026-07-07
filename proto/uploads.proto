@@ -1,0 +1,65 @@
+syntax = "proto3";
+
+package proto;
+
+import "buf/validate/validate.proto";
+
+message Upload {
+  uint64 upload_id = 1;
+  string filename = 2;
+  string status = 3;
+  google.protobuf.Timestamp created_at = 4;
+  google.protobuf.Timestamp updated_at = 5;
+}
+
+message GetUploadRequest {
+  uint64 upload_id = 1;
+}
+
+message GetUploadResponse {
+  Upload upload = 1;
+}
+
+message ListUploadsRequest {
+  int32 page = 1;
+  int32 limit = 2;
+  string status = 3;
+}
+
+message ListUploadsResponse {
+  repeated Upload uploads = 1;
+  int64 total = 2;
+}
+
+message CreateUploadRequest {
+  string filename = 1;
+}
+
+message CreateUploadResponse {
+  Upload upload = 1;
+}
+
+message UpdateUploadStatusRequest {
+  uint64 upload_id = 1;
+  string status = 2;
+}
+
+message UpdateUploadStatusResponse {
+  Upload upload = 1;
+}
+
+message DeleteUploadRequest {
+  uint64 upload_id = 1;
+}
+
+message DeleteUploadResponse {
+  bool success = 1;
+}
+
+service UploadService {
+  rpc GetUpload(GetUploadRequest) returns (GetUploadResponse) {}
+  rpc ListUploads(ListUploadsRequest) returns (ListUploadsResponse) {}
+  rpc CreateUpload(CreateUploadRequest) returns (CreateUploadResponse) {}
+  rpc UpdateUploadStatus(UpdateUploadStatusRequest) returns (UpdateUploadStatusResponse) {}
+  rpc DeleteUpload(DeleteUploadRequest) returns (DeleteUploadResponse) {}
+}
