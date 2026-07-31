@@ -1,4 +1,4 @@
-FROM golang:1.24.4-alpine AS build
+FROM golang:1.26.1-alpine AS build
 
 WORKDIR /app
 
@@ -16,13 +16,14 @@ EXPOSE ${PORT}
 CMD ["./main"]
 
 
-FROM node:20 AS frontend_builder
+FROM ghcr.io/pnpm/pnpm:11 AS frontend_builder
+RUN pnpm runtime set node 22 -g
 WORKDIR /frontend
 
 COPY frontend/package*.json ./
-RUN npm install
+RUN pnpm install
 COPY frontend/. .
-RUN npm run build
+RUN pnpm run build
 
 FROM node:23-slim AS frontend
 RUN npm install -g serve

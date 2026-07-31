@@ -1,7 +1,6 @@
 
 "use client";
 
-import { useState } from "react";
 
 import { Anchor, AppShell, Avatar, Burger, Button, Group, Image, Menu, Modal, Text } from '@mantine/core';
 import { useDisclosure, useHash } from "@mantine/hooks";
@@ -48,7 +47,9 @@ const AppShellLayout = ({ children, hash, setHash }: { children: React.ReactNode
 
                         </Group>
                         <Group>
-                                 <Button component="a" href="http://88.208.224.248:8888/" target="_blank" variant="default" radius={"xl"}>Upload GPS data</Button>
+                                
+                            <FileUploadButtonComponent/>
+                                 {/* <Button component="a" href="http://88.208.224.248:8888/" target="_blank" variant="default" radius={"xl"}>Upload GPS data</Button> */}
 
                             <Menu width={200} position="bottom-start" shadow="md">
                                 <Menu.Target>

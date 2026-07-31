@@ -11,10 +11,15 @@ import { MantineProvider } from '@mantine/core';
 import { useHash } from '@mantine/hooks';
 import DataViewMigration from './components/DataViewMigration';
 import { Toaster } from 'react-hot-toast'
+import { useEffect } from 'react';
 function App() {
 
   const [hash, setHash] = useHash();
 
+  useEffect(() => {
+      setHash("#map")
+  }, [])
+  
 
   return (
     <>

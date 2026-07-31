@@ -5,7 +5,6 @@ import (
 	"bird-migration-platform/internal/types"
 	"fmt"
 	"os"
-	"time"
 
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
@@ -47,10 +46,10 @@ func InitFunc() (*gorm.DB, error) {
 
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{PrepareStmt: false})
 
-	sqlDB, _ := db.DB()
-	sqlDB.SetMaxOpenConns(50)
-	sqlDB.SetMaxIdleConns(25)
-	sqlDB.SetConnMaxLifetime(5 * time.Minute)
+	// sqlDB, err := db.DB()
+	// sqlDB.SetMaxOpenConns(50)
+	// sqlDB.SetMaxIdleConns(25)
+	// sqlDB.SetConnMaxLifetime(5 * time.Minute)
 
 	if os.Getenv("RUN_MIGRATIONS") == "true" {
 		db.AutoMigrate(&migration.User{}, &migration.BirdMigrationHistory{}, &migration.UploadList{}, &migration.RawClusterRow{}, &migration.GPSEvent{}, &migration.StopoverPoint{})

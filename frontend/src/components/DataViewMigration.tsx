@@ -3,7 +3,7 @@ import { DataTable } from 'mantine-datatable';
 import { useEffect, useState } from 'react';
 import type { RootUploadData } from '../types/UploadData';
 import dateFormat, { masks } from "dateformat";
-import { AiFillDelete, AiOutlineDelete } from 'react-icons/ai';
+import {  AiOutlineDelete } from 'react-icons/ai';
 import { BsCloudUpload } from "react-icons/bs";
 import toast from 'react-hot-toast';
 const DataViewMigration = () => {

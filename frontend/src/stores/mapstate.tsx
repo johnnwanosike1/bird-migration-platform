@@ -1,42 +1,8 @@
 import { create } from 'zustand'
 import axios from 'axios'
 import _ from "lodash";
+import type { BirdLocationPoint, BirdStopoverData, StopoverPoint, TrajectoryData } from '../types/Filter';
 
-export type StopoverPoint = {
-    name: string
-    code: string
-    address: string
-    entries: string
-    exits: string
-    coordinates: [number, number]
-}
-
-export type TrajectoryData = {
-    tag_local_identifier: number
-    individual_local_identifier: string
-    path: [number, number][]
-    speeds: (number | null)[]
-    timestamps: string[]
-    total_points: number
-}
-
-
-type BirdStopoverData = {
-    tag_local_identifier: number;
-    individual_local_identifier: string;
-    centroid_lat: number;
-    centroid_lon: number;
-    fix_count?: number;
-};
-
-type BirdLocationPoint = {
-    name: string;
-    code: string;
-    address: string;
-    entries: string;
-    exits: string;
-    coordinates: [longitude: number, latitude: number];
-};
 
 
 type MapState = {
@@ -76,7 +42,8 @@ const useMapStateStore = create<MapState>((set) => ({
 
 
             const res = await instance.post('/map-filter', payload)
-
+            console.log(res.data.bird_migration_stopover);
+            
             const birdLocations: BirdLocationPoint[] = _.map(
                 res.data.bird_migration_stopover as BirdStopoverData[],
                 (item: BirdStopoverData) => ({

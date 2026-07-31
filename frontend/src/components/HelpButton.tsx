@@ -2,7 +2,6 @@ import * as React from 'react';
 import { Dialog } from '@base-ui/react/dialog';
 import { ScrollArea } from '@base-ui/react/scroll-area';
 import buttonStyle from "../styles/button.module.css"
-import { AiOutlineClose, AiOutlineCloseCircle } from 'react-icons/ai';
 import { VscClose } from 'react-icons/vsc';
 
 const HelpButton = ({ }) => {

@@ -6,16 +6,17 @@ services:
       target: prod
     restart: unless-stopped
     ports:
-      - ${PORT}:${PORT}
-    environment:
-      APP_ENV: ${APP_ENV}
-      PORT: ${PORT}
+      - "${PORT:-8080}:${PORT:-8080}"
+    env_file:
+      - .env
   frontend:
     build:
       context: .
       dockerfile: Dockerfile
       target: frontend
     restart: unless-stopped
+    env_file:
+      - .env
     ports:
       - 5173:5173
     depends_on:

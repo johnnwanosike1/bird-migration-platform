@@ -1,11 +1,11 @@
-import { Anchor, Button, Checkbox, Divider, Group, LoadingOverlay, ScrollArea, Stack, Switch } from "@mantine/core"
+import {  Button, Checkbox, Divider, LoadingOverlay, ScrollArea, Stack, Switch } from "@mantine/core"
 import { DatePickerInput } from '@mantine/dates';
 import { useEffect, useState } from "react";
 import { AiOutlineFilter } from "react-icons/ai";
 import { useForm } from '@mantine/form';
 import { useMapStateStore } from "../stores/mapstate";
 import toast from "react-hot-toast";
-import { useDisclosure, useSetState } from "@mantine/hooks";
+import {  useSetState } from "@mantine/hooks";
 
 
 const SideBarComponent = () => {

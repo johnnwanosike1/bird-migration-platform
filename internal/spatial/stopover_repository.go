@@ -83,6 +83,7 @@ func (r *StopoverRepository) GetStopoverPoints(f FilterData) (StopoverResult, er
 		sem <- struct{}{}
 		go func() {
 			defer wg.Done()
+
 			defer func() { <-sem }()
 
 			points, err := r.getStopoverPointsForTag(f, tag)
@@ -92,6 +93,8 @@ func (r *StopoverRepository) GetStopoverPoints(f FilterData) (StopoverResult, er
 
 	wg.Wait()
 	close(resultsCh)
+
+	// fmt.Print("points -> ", tagResult)
 
 	var out []migration.StopoverPoint
 	var firstErr error

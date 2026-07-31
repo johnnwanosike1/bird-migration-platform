@@ -3,7 +3,7 @@ import Map, { NavigationControl, ScaleControl, GeolocateControl, FullscreenContr
 import "maplibre-gl/dist/maplibre-gl.css";
 import { Button, Group } from "@mantine/core";
 import { useMapStateStore } from "../stores/mapstate";
-import type { StopoverPoint, TrajectoryData } from "../stores/mapstate";
+import type { StopoverPoint, TrajectoryData } from "../types/Filter";
 
 const MAP_STYLE = "https://tiles.openfreemap.org/styles/liberty";
 
@@ -22,13 +22,13 @@ export default function BirdMapContainer() {
         bearing: 0,
         pitch: 0
     });
-    const [activeLayer, setActiveLayer] = useState<"tracks" | "stopover" | "heatmap" | null>(null);
+    const [activeLayer, setActiveLayer] = useState<"tracks" | "stopover" | null>(null);
     const [selected, setSelected] = useState<StopoverPoint | null>(null);
     const [selectedVisitCount, setSelectedVisitCount] = useState<number>(1);
 
     const stopovers: StopoverPoint[]     = useMapStateStore((state: any) => state.data)
     const trajectories: TrajectoryData[] = useMapStateStore((state: any) => state.trajectories)
-
+    
     // Fly to bounding box when trajectories load
     useEffect(() => {
         if (!trajectories?.length || !mapRef.current) return;
@@ -109,7 +109,7 @@ export default function BirdMapContainer() {
         for (const d of stopovers) {
             const lng = d?.coordinates?.[0] ?? 0;
             const lat = d?.coordinates?.[1] ?? 0;
-            // ~1 decimal place ≈ 11km buckets; close enough to call it "the same site"
+
             const key = `${lng.toFixed(1)},${lat.toFixed(1)}`;
             if (groups[key]) {
                 groups[key].items.push(d);
@@ -148,7 +148,7 @@ export default function BirdMapContainer() {
                     }}
                 >
                     <div style={{ position: "relative", cursor: "pointer" }}>
-                        <div
+                    <div
                             style={{
                                 width: 14,
                                 height: 14,
@@ -182,7 +182,7 @@ export default function BirdMapContainer() {
                             }}>
                                 {visitCount}
                             </div>
-                        )}
+                        )}            
                     </div>
                 </Marker>
             );
@@ -218,7 +218,7 @@ export default function BirdMapContainer() {
                             }}
                             layout={{ "line-cap": "round", "line-join": "round" }}
                         />
-                        <Layer
+                <Layer
                             id="trajectory-line"
                             type="line"
                             paint={{
@@ -227,7 +227,7 @@ export default function BirdMapContainer() {
                                 "line-opacity": 0.85,
                             }}
                             layout={{ "line-cap": "round", "line-join": "round" }}
-                        />
+                        />        
                     </Source>
                 )}
 
@@ -243,7 +243,7 @@ export default function BirdMapContainer() {
                         closeButton={false}
                         onClose={() => setSelected(null)}
                     >
-                        <div style={{
+                  <div style={{
                             background: "rgba(10,10,14,0.95)",
                             border: "1px solid rgba(255,165,0,0.4)",
                             borderRadius: 6,
@@ -253,7 +253,7 @@ export default function BirdMapContainer() {
                             letterSpacing: "0.06em",
                             lineHeight: 1.9,
                             minWidth: 180,
-                        }}>
+                        }}>      
                             <div style={{ color: "#ffaa00", fontWeight: 700, marginBottom: 4 }}>
                                 STOP-OVER{selectedVisitCount > 1 ? ` (${selectedVisitCount} VISITS)` : ""}
                             </div>
@@ -294,13 +294,7 @@ export default function BirdMapContainer() {
                             </span>
                         )}
                     </Button>
-                    <Button
-                        color={activeLayer === "heatmap" ? "red" : "rgba(10,10,14,0.70)"}
-                        radius="xl"
-                        onClick={() => setActiveLayer(v => v === "heatmap" ? null : "heatmap")}
-                    >
-                        Heatmap
-                    </Button>
+                 
                 </Group>
             </div>
 
@@ -323,7 +317,7 @@ export default function BirdMapContainer() {
                     </div>
                 )}
                 {stopoverGroups.length > 0 && (
-                    <div style={{ marginTop: 4, borderTop: "1px solid rgba(255,255,255,0.08)", paddingTop: 4 }}>
+                <div style={{ marginTop: 4, borderTop: "1px solid rgba(255,255,255,0.08)", paddingTop: 4 }}>
                         <div>
                             <span style={{ color: "#94a3b8" }}>SITES </span>
                             <span style={{ color: "#ffaa00" }}>{stopoverGroups.length}</span>
@@ -336,7 +330,7 @@ export default function BirdMapContainer() {
                             <span style={{ color: "#94a3b8" }}>FIXES </span>
                             <span style={{ color: "#ffaa00" }}>{totalFixes}</span>
                         </div>
-                    </div>
+                    </div>       
                 )}
                 {/* Bird colour legend */}
                 {activeLayer === "tracks" && trajectories?.length > 0 && (

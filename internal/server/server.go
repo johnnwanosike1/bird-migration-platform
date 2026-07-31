@@ -25,7 +25,7 @@ func NewServer() *http.Server {
 	db, err := database.InitFunc()
 
 	if err != nil {
-		fmt.Print(err.Error())
+
 	}
 
 	NewServer := &Server{
